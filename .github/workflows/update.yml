@@ -2,8 +2,8 @@ name: Auto Update IPTV Sources
 
 on:
   schedule:
-    # 每4小时运行一次（UTC时间）
-    - cron: '0 */8 * * *'
+    # 北京时间每天11:00运行
+    - cron: '0 3 * * *'  # UTC时间3:00对应北京时间11:00
   workflow_dispatch:  # 允许手动触发
   push:
     branches: [ main, master ]
@@ -31,11 +31,9 @@ jobs:
       - name: Run update script
         run: |
           # 根据iptv-sources项目的实际更新命令调整
-          # 常见命令如下：
           pnpm build
           pnpm m3u
-          # 或者运行项目自带的更新脚本
-          # chmod +x update-sources.sh && ./update-sources.sh
+          # 或使用项目的其他更新命令
 
       - name: Commit and push changes
         run: |
