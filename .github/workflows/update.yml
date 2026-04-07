@@ -2,11 +2,14 @@ name: Auto Update IPTV Sources
 
 on:
   schedule:
-    # 北京时间每天11:00运行
-    - cron: '0 3 * * *'  # UTC时间3:00对应北京时间11:00
-  workflow_dispatch:  # 允许手动触发
+    - cron: '0 3 * * *'  # 北京时间每天11:00 (UTC 3:00)
+  workflow_dispatch:
   push:
     branches: [ main, master ]
+
+# 设置环境变量，强制使用Node.js 24
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   update:
@@ -21,7 +24,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'  # 保持Node.js 20，但actions会使用Node.js 24运行
 
       - name: Install dependencies
         run: |
