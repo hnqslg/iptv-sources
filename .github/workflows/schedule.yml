@@ -2,7 +2,7 @@ name: update schedule
 
 on:
   schedule:
-    - cron: "50 10 * * *"  # "0 */8 * * *"每8小时的第0分钟
+    - cron: "50 2 * * *"  # "0 */8 * * *"每8小时的第0分钟
   workflow_dispatch:  # ← 添加这行，允许手动触发测试
 
 permissions:
