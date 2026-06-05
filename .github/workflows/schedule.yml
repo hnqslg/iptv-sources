@@ -2,7 +2,7 @@ name: update schedule
 
 on:
   schedule:
-    - cron: "10 0 * * *"
+    - cron: "10 0 * * *" # 
   workflow_dispatch:  # ← 添加这行，允许手动触发测试
 
 permissions:
@@ -83,3 +83,9 @@ jobs:
       #   with:
       #     webhook: ${{ secrets.DISCORD_WEBHOOK }}
       #     message: ${{ github.repository }} has been successfullly updated, see https://m3u.ibert.me to get more.
+      - name: Trigger Cloudflare Pages Build
+        run: |
+          curl -X POST "https://api.cloudflare.com/client/v4/accounts/YOUR_ACCOUNT_ID/pages/projects/YOUR_PROJECT_NAME/deployments" \
+            -H "Authorization: Bearer ${{ secrets.CF_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            --verbose  # 加上这个参数可以看到详细的请求和响应头
